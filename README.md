@@ -91,6 +91,12 @@ No testable scenarios.
 - **When**: the user clicks on a menu button to display a chart of the upcoming events by city
 - **Then**: the app displays a chart that shows the number of upcoming events for each city
 
+## Data Flow and Serverless Authorization
+
+ The Meet App frontend will make use of data stored in a Google Calendar account via the Google Calendar API. Since the Google Calendar API is protected and requires an authorization token, the app will also make use of an authorization service deployed in a serverless AWS Lambda function. The app will submit its credentials to the Lambda function. If the credentials are valid, the app will receive a JWT token that will be used to submit any request to the Google Calendar API. Here is a diagram of the authorization flow.
+
+![Meet App Authorization Flow](public/AuthFlow.svg)
+
 
 
 
