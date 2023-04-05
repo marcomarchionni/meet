@@ -19,7 +19,7 @@ const { client_secret, client_id, redirect_uris } = credentials;
 const oAuth2Client = new OAuth2(client_id, client_secret, redirect_uris[0]);
 
 /**
- * Show Google Authentication
+ * Show Google log in
  */
 module.exports.getAuthURL = async () => {
   const authUrl = oAuth2Client.generateAuthUrl({
