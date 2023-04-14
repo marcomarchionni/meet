@@ -4,7 +4,7 @@ const NumberOfEvents = () => {
   const [value, setValue] = useState('32');
   return (
     <div>
-      <label for="numberOfEventsTextbox">Number of events</label>
+      <label htmlFor="numberOfEventsTextbox">Number of events</label>
       <input
         id="numberOfEventsTextbox"
         type="text"

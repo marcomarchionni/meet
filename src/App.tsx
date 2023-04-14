@@ -7,9 +7,9 @@ import NumberOfEvents from './NumberOfEvents';
 function App() {
   return (
     <div className="App">
-      <CitySearch />
+      <CitySearch locations={[]} />
       <NumberOfEvents />
-      <EventList />
+      <EventList events={[]} />
     </div>
   );
 }

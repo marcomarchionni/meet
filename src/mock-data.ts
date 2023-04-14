@@ -1,4 +1,6 @@
-export const mockData = [
+import { calendar_v3 } from 'googleapis';
+
+export const mockData: calendar_v3.Schema$Event[] = [
   {
     kind: 'calendar#event',
     etag: '"3181161784712000"',

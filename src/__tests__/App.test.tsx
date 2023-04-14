@@ -1,12 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { ShallowWrapper, shallow } from 'enzyme';
 import App from '../App';
 import EventList from '../EventList';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
 
 describe('<App /> component', () => {
-  let AppWrapper;
+  let AppWrapper: ShallowWrapper<typeof App>;
   beforeAll(() => {
     AppWrapper = shallow(<App />);
   });

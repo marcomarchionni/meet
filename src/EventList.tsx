@@ -1,7 +1,12 @@
 import React from 'react';
 import Event from './Event';
+import { calendar_v3 } from 'googleapis';
 
-const EventList = ({ events }) => {
+interface EventListProps {
+  events: calendar_v3.Schema$Event[];
+}
+
+const EventList = ({ events }: EventListProps) => {
   return (
     <ul className="EventList">
       {events.map((event) => (

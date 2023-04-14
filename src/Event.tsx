@@ -1,7 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
+import { calendar_v3 } from 'googleapis';
 
-const Event = ({ event }) => {
+interface EventProps {
+  event: calendar_v3.Schema$Event;
+}
+
+const Event = ({ event }: EventProps) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const handleShowDetails = () => {
@@ -10,11 +15,11 @@ const Event = ({ event }) => {
   return (
     <div>
       <h3 className="eventTitle">{event.summary}</h3>
-      <p className="eventStartDate">{event.start.dateTime}</p>
+      <p className="eventStartDate">{event.start?.dateTime}</p>
       <p className="eventLocation">{`@${event.summary} | ${event.location}`}</p>
       {showDetails && (
         <>
-          <a href={event.htmlLink} className="eventCalendarLink">
+          <a href={event.htmlLink || '#'} className="eventCalendarLink">
             See Details on Google Calendar
           </a>
           <p className="eventDescription">{event.description}</p>

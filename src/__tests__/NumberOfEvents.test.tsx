@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { ShallowWrapper, shallow } from 'enzyme';
 import NumberOfEvents from '../NumberOfEvents';
 
 describe('<NumberOfEvents /> component', () => {
-  let NumberOfEventsWrapper;
+  let NumberOfEventsWrapper: ShallowWrapper<typeof NumberOfEvents>;
   const defaultNumber = '32';
   beforeAll(() => {
     NumberOfEventsWrapper = shallow(<NumberOfEvents />);

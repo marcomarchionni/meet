@@ -1,11 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 
-const CitySearch = ({ locations }) => {
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+interface CitySearchProps {
+  locations: string[];
+}
 
-  const handleInputChange = (e) => {
+const CitySearch = ({ locations }: CitySearchProps) => {
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
     const filteredLocations = locations.filter((location) =>
@@ -14,7 +18,7 @@ const CitySearch = ({ locations }) => {
     setSuggestions(filteredLocations);
   };
 
-  const handleItemClicked = (suggestion) => {
+  const handleItemClicked = (suggestion: string) => {
     setQuery(suggestion);
   };
 
