@@ -21,14 +21,23 @@ describe('<Event /> component', () => {
     expect(EventWrapper.find('.eventDescription')).toHaveLength(0);
   });
 
-  test('render event expanded when showDetails is clicked', () => {
-    const detailsButton = EventWrapper.find('.eventDetailsButton');
-    detailsButton.simulate('click');
+  test('render event expanded/collapsed when show/hide Details is clicked', () => {
+    const showDetailsButton = EventWrapper.find('.eventDetailsButton');
+    showDetailsButton.simulate('click');
 
     expect(EventWrapper.find('.eventCalendarLink')).toHaveLength(1);
     expect(EventWrapper.find('.eventDescription')).toHaveLength(1);
     expect(EventWrapper.find('.eventDetailsButton').text()).toBe(
       'Hide Details',
+    );
+
+    const hideDetailsButton = EventWrapper.find('.eventDetailsButton');
+    hideDetailsButton.simulate('click');
+
+    expect(EventWrapper.find('.eventCalendarLink')).toHaveLength(0);
+    expect(EventWrapper.find('.eventDescription')).toHaveLength(0);
+    expect(EventWrapper.find('.eventDetailsButton').text()).toBe(
+      'Show Details',
     );
   });
 });
