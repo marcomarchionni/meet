@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 interface CitySearchProps {
   locations: string[];
+  updateEvents: (location: string) => void;
 }
 
-const CitySearch = ({ locations }: CitySearchProps) => {
+const CitySearch = ({ locations, updateEvents }: CitySearchProps) => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
@@ -20,6 +20,7 @@ const CitySearch = ({ locations }: CitySearchProps) => {
 
   const handleItemClicked = (suggestion: string) => {
     setQuery(suggestion);
+    updateEvents(suggestion);
   };
 
   return (
@@ -36,7 +37,7 @@ const CitySearch = ({ locations }: CitySearchProps) => {
             {suggestion}
           </li>
         ))}
-        <li key="all">
+        <li key="all" onClick={() => handleItemClicked('all')}>
           <b>See all cities</b>
         </li>
       </ul>
