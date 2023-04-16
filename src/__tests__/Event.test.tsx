@@ -27,6 +27,9 @@ describe('<Event /> component', () => {
     showDetailsButton.simulate('click');
 
     expect(EventWrapper.find('.eventCalendarLink')).toHaveLength(1);
+    expect(EventWrapper.find('.eventCalendarLink').props().href).toEqual(
+      event.htmlLink,
+    );
     expect(EventWrapper.find('.eventDescription')).toHaveLength(1);
     expect(EventWrapper.find('.eventDetailsButton').text()).toBe(
       'Hide Details',

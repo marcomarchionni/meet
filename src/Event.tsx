@@ -19,9 +19,11 @@ const Event = ({ event }: EventProps) => {
       <p className="eventLocation">{`@${event.summary} | ${event.location}`}</p>
       {showDetails && (
         <>
-          <a href={event.htmlLink || '#'} className="eventCalendarLink">
-            See Details on Google Calendar
-          </a>
+          {event.htmlLink && (
+            <a href={event.htmlLink} className="eventCalendarLink">
+              See Details on Google Calendar
+            </a>
+          )}
           <p className="eventDescription">{event.description}</p>
         </>
       )}

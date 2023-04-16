@@ -30,6 +30,14 @@
     "workbox-strategies": "^6.5.4",
     "workbox-streams": "^6.5.4"
   },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/reportWebVitals.js",
+      "<rootDir>/src/service-worker.js",
+      "<rootDir>/src/serviceWorkerRegistration.js",
+      "<rootDir>/src/index.tsx"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
