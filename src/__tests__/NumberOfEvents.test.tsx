@@ -1,4 +1,3 @@
-import React from 'react';
 import { ShallowWrapper, shallow } from 'enzyme';
 import NumberOfEvents from '../NumberOfEvents';
 

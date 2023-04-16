@@ -1,8 +1,7 @@
-import React from 'react';
 import { ShallowWrapper, shallow } from 'enzyme';
+import { calendar_v3 } from 'googleapis';
 import Event from '../Event';
 import { mockData } from '../mock-data';
-import { calendar_v3 } from 'googleapis';
 
 describe('<Event /> component', () => {
   let EventWrapper: ShallowWrapper<typeof Event>;

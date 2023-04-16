@@ -1,8 +1,7 @@
-import React from 'react';
 import { ShallowWrapper, shallow } from 'enzyme';
 import App from '../App';
-import EventList from '../EventList';
 import CitySearch from '../CitySearch';
+import EventList from '../EventList';
 import NumberOfEvents from '../NumberOfEvents';
 
 describe('<App /> component', () => {
