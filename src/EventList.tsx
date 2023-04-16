@@ -1,6 +1,5 @@
-import React from 'react';
-import Event from './Event';
 import { calendar_v3 } from 'googleapis';
+import Event from './Event';
 
 interface EventListProps {
   events: calendar_v3.Schema$Event[];

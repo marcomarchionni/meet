@@ -1,6 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
 import { calendar_v3 } from 'googleapis';
+import { useState } from 'react';
 
 interface EventProps {
   event: calendar_v3.Schema$Event;

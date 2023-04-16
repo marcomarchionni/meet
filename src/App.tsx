@@ -1,7 +1,6 @@
-import React from 'react';
 import './App.css';
-import EventList from './EventList';
 import CitySearch from './CitySearch';
+import EventList from './EventList';
 import NumberOfEvents from './NumberOfEvents';
 
 function App() {
