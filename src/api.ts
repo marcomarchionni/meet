@@ -6,7 +6,9 @@ import Schema$Event = calendar_v3.Schema$Event;
  * This function takes an event array and uses the map function to create
  * an array with unique locations, removing duplicates
  */
-export const extractLocations = (events: Schema$Event[]): string[] => {
+export const extractLocations = (
+  events: Schema$Event[] | null | undefined,
+): string[] => {
   const uniqueAndTruthy = (value: string, index: number, array: string[]) => {
     return value && array.indexOf(value) === index;
   };
