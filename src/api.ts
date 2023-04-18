@@ -1,5 +1,5 @@
-import { calendar_v3 } from 'googleapis';
-import Schema$Event = calendar_v3.Schema$Event;
+import { Schema$Event } from './interfaces/google-interfaces';
+import { mockData } from './mock-data';
 
 /**
  * @param {*} events:
@@ -18,4 +18,8 @@ export const extractLocations = (
     .map((event) => event.location || '')
     .filter(uniqueAndTruthy);
   return locations;
+};
+
+export const getEvents = async () => {
+  return mockData;
 };

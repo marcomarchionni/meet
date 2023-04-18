@@ -1,11 +1,11 @@
 import { ShallowWrapper, shallow } from 'enzyme';
-import { calendar_v3 } from 'googleapis';
 import Event from '../Event';
 import { mockData } from '../mock-data';
+import { Schema$Event } from '../interfaces/google-interfaces';
 
 describe('<Event /> component', () => {
   let EventWrapper: ShallowWrapper<typeof Event>;
-  let event: calendar_v3.Schema$Event;
+  let event: Schema$Event;
   beforeAll(() => {
     event = mockData[0];
     EventWrapper = shallow(<Event event={event} />);

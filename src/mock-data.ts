@@ -1,6 +1,6 @@
-import { calendar_v3 } from 'googleapis';
+import { Schema$Event } from './interfaces/google-interfaces';
 
-export const mockData: calendar_v3.Schema$Event[] = [
+export const mockData: Schema$Event[] = [
   {
     kind: 'calendar#event',
     etag: '"3181161784712000"',
@@ -40,7 +40,6 @@ export const mockData: calendar_v3.Schema$Event[] = [
     reminders: {
       useDefault: true,
     },
-    eventType: 'default',
   },
   {
     kind: 'calendar#event',
@@ -81,6 +80,5 @@ export const mockData: calendar_v3.Schema$Event[] = [
     reminders: {
       useDefault: true,
     },
-    eventType: 'default',
   },
 ];

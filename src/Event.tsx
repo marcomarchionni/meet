@@ -1,8 +1,8 @@
-import { calendar_v3 } from 'googleapis';
 import { useState } from 'react';
+import { Schema$Event } from './interfaces/google-interfaces';
 
 interface EventProps {
-  event: calendar_v3.Schema$Event;
+  event: Schema$Event;
 }
 
 const Event = ({ event }: EventProps) => {

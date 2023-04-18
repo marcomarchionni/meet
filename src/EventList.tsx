@@ -1,8 +1,8 @@
-import { calendar_v3 } from 'googleapis';
 import Event from './Event';
+import { Schema$Event } from './interfaces/google-interfaces';
 
 interface EventListProps {
-  events: calendar_v3.Schema$Event[];
+  events: Schema$Event[];
 }
 
 const EventList = ({ events }: EventListProps) => {
