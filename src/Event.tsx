@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Schema$Event } from './interfaces/google-interfaces';
-import { formatDate } from './util';
+import { formatDate } from './utils';
 
 interface EventProps {
   event: Schema$Event;
