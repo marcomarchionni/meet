@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Schema$Event } from './interfaces/google-interfaces';
+import { formatDate } from './util';
 
 interface EventProps {
   event: Schema$Event;
@@ -11,22 +12,25 @@ const Event = ({ event }: EventProps) => {
   const handleShowDetails = () => {
     setShowDetails(!showDetails);
   };
+
   return (
-    <div>
-      <h3 className="eventTitle">{event.summary}</h3>
-      <p className="eventStartDate">{event.start?.dateTime}</p>
-      <p className="eventLocation">{`@${event.summary} | ${event.location}`}</p>
+    <div className="event">
+      <h3 className="event_title">{event.summary}</h3>
+      <p className="event_start-date">{formatDate(event.start?.dateTime)}</p>
+      <p className="event_location">{`@${event.summary} | ${event.location}`}</p>
       {showDetails && (
         <>
           {event.htmlLink && (
-            <a href={event.htmlLink} className="eventCalendarLink">
-              See Details on Google Calendar
-            </a>
+            <div className="event_calendar-link">
+              <a href={event.htmlLink} target="_blank" rel="noreferrer">
+                See Details on Google Calendar
+              </a>
+            </div>
           )}
-          <p className="eventDescription">{event.description}</p>
+          <p className="event_description">{event.description}</p>
         </>
       )}
-      <button className="eventDetailsButton" onClick={handleShowDetails}>
+      <button className="event_details-button" onClick={handleShowDetails}>
         {showDetails ? 'Hide Details' : 'Show Details'}
       </button>
     </div>

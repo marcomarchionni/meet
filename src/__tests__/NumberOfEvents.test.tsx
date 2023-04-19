@@ -9,27 +9,27 @@ describe('<NumberOfEvents /> component', () => {
   });
 
   test('render textbox', () => {
-    expect(NumberOfEventsWrapper.find('.numberOfEventsTextbox')).toHaveLength(
+    expect(NumberOfEventsWrapper.find('.number-of-events_input')).toHaveLength(
       1,
     );
   });
 
   test('render default value in textbox', () => {
     expect(
-      NumberOfEventsWrapper.find('.numberOfEventsTextbox').prop('value'),
+      NumberOfEventsWrapper.find('.number-of-events_input').prop('value'),
     ).toBe(defaultNumber);
   });
 
   test('render new value when input changes', () => {
     const newValue = '20';
     // when
-    NumberOfEventsWrapper.find('.numberOfEventsTextbox').simulate('change', {
+    NumberOfEventsWrapper.find('.number-of-events_input').simulate('change', {
       target: { value: newValue },
     });
 
     //then
     expect(
-      NumberOfEventsWrapper.find('.numberOfEventsTextbox').prop('value'),
+      NumberOfEventsWrapper.find('.number-of-events_input').prop('value'),
     ).toBe(newValue);
   });
 });

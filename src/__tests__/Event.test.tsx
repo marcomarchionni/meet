@@ -11,35 +11,36 @@ describe('<Event /> component', () => {
     EventWrapper = shallow(<Event event={event} />);
   });
   test('render event collapsed', () => {
-    expect(EventWrapper.find('.eventStartDate')).toHaveLength(1);
-    expect(EventWrapper.find('.eventTitle')).toHaveLength(1);
-    expect(EventWrapper.find('.eventLocation')).toHaveLength(1);
+    expect(EventWrapper.find('.event_start-date')).toHaveLength(1);
+    expect(EventWrapper.find('.event_title')).toHaveLength(1);
+    expect(EventWrapper.find('.event_location')).toHaveLength(1);
 
-    const detailsButton = EventWrapper.find('.eventDetailsButton');
+    const detailsButton = EventWrapper.find('.event_details-button');
     expect(detailsButton).toHaveLength(1);
     expect(detailsButton.text()).toBe('Show Details');
-    expect(EventWrapper.find('.eventDescription')).toHaveLength(0);
+    expect(EventWrapper.find('.event_description')).toHaveLength(0);
   });
 
   test('render event expanded/collapsed when show/hide Details is clicked', () => {
-    const showDetailsButton = EventWrapper.find('.eventDetailsButton');
+    const showDetailsButton = EventWrapper.find('.event_details-button');
+    expect(showDetailsButton).toHaveLength(1);
     showDetailsButton.simulate('click');
 
-    expect(EventWrapper.find('.eventCalendarLink')).toHaveLength(1);
-    expect(EventWrapper.find('.eventCalendarLink').props().href).toEqual(
+    expect(EventWrapper.find('.event_calendar-link a')).toHaveLength(1);
+    expect(EventWrapper.find('.event_calendar-link a').props().href).toEqual(
       event.htmlLink,
     );
-    expect(EventWrapper.find('.eventDescription')).toHaveLength(1);
-    expect(EventWrapper.find('.eventDetailsButton').text()).toBe(
+    expect(EventWrapper.find('.event_description')).toHaveLength(1);
+    expect(EventWrapper.find('.event_details-button').text()).toBe(
       'Hide Details',
     );
 
-    const hideDetailsButton = EventWrapper.find('.eventDetailsButton');
+    const hideDetailsButton = EventWrapper.find('.event_details-button');
     hideDetailsButton.simulate('click');
 
-    expect(EventWrapper.find('.eventCalendarLink')).toHaveLength(0);
-    expect(EventWrapper.find('.eventDescription')).toHaveLength(0);
-    expect(EventWrapper.find('.eventDetailsButton').text()).toBe(
+    expect(EventWrapper.find('.event_calendar-link')).toHaveLength(0);
+    expect(EventWrapper.find('.event_description')).toHaveLength(0);
+    expect(EventWrapper.find('.event_details-button').text()).toBe(
       'Show Details',
     );
   });

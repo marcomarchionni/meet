@@ -11,14 +11,23 @@ function App() {
   const [locations, setLocations] = useState<string[]>([]);
 
   useEffect(() => {
-    getEvents().then((events) => {
-      setEvents(events);
-      setLocations(extractLocations(events));
-    });
+    updateEvents();
   }, []);
+
+  const updateEvents = (location: string = '') => {
+    getEvents().then((events) => {
+      setLocations(extractLocations(events));
+      const locationEvents =
+        location === ''
+          ? events
+          : events.filter((event) => event.location === location);
+      setEvents(locationEvents);
+    });
+  };
+
   return (
-    <div className="App">
-      <CitySearch locations={locations} />
+    <div className="app">
+      <CitySearch locations={locations} updateEvents={updateEvents} />
       <NumberOfEvents />
       <EventList events={events} />
     </div>
