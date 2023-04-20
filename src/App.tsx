@@ -5,6 +5,7 @@ import EventList from './EventList';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
 import { Schema$Event } from './interfaces/google-interfaces';
+import './nprogress.css';
 
 function App() {
   const [events, setEvents] = useState<Schema$Event[]>([]);
