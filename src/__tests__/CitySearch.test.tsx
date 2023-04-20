@@ -13,7 +13,7 @@ describe('<CitySearch /> component', () => {
     location = locations[0];
     query = location.slice(0, 2);
     CitySearchWrapper = shallow(
-      <CitySearch locations={locations} updateEvents={() => {}} />,
+      <CitySearch locations={locations} location={''} setLocation={() => {}} />,
     );
   });
 

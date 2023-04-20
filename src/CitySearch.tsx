@@ -3,11 +3,12 @@ import { useState } from 'react';
 
 interface CitySearchProps {
   locations: string[];
-  updateEvents: (location: string) => void;
+  location: string;
+  setLocation: (location: string) => void;
 }
 
-const CitySearch = ({ locations, updateEvents }: CitySearchProps) => {
-  const [query, setQuery] = useState('');
+const CitySearch = ({ locations, location, setLocation }: CitySearchProps) => {
+  const [query, setQuery] = useState(location);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -26,7 +27,7 @@ const CitySearch = ({ locations, updateEvents }: CitySearchProps) => {
 
   const handleItemClicked = (suggestion: string) => {
     setQuery(suggestion);
-    updateEvents(suggestion);
+    setLocation(suggestion);
     setShowSuggestions(false);
   };
 

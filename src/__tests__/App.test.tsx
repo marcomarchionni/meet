@@ -7,6 +7,7 @@ import { extractLocations } from '../api';
 import { mockData } from '../mock-data';
 import { act } from 'react-dom/test-utils';
 import { setImmediate } from 'timers';
+import { defaultNumberOfEvents } from '../defaults';
 
 describe('<App /> component', () => {
   let AppWrapper: ShallowWrapper<typeof App>;
@@ -29,6 +30,7 @@ describe('<App /> component', () => {
 describe('<App /> integration: passing props to children', () => {
   let AppWrapper: ReactWrapper<typeof App>;
   const expectedLocations = extractLocations(mockData);
+  const expectedEvents = mockData.slice(0, defaultNumberOfEvents);
 
   beforeEach(async () => {
     await act(() => {
@@ -42,7 +44,7 @@ describe('<App /> integration: passing props to children', () => {
   test('App passes mock events as prop to EventList', () => {
     const eventsProp = AppWrapper.find(EventList).props().events;
     expect(eventsProp).not.toEqual(undefined);
-    expect(eventsProp).toHaveLength(2);
+    expect(eventsProp).toHaveLength(expectedEvents.length);
   });
 
   test('App passes mock locations as prop to CitySearch', () => {
@@ -59,7 +61,7 @@ describe('<App /> integration: selecting locations in sugguestions list', () => 
   const expectedFilteredEvents = mockData.filter(
     (event) => event.location === expectedLocation,
   );
-  const allEvents = mockData;
+  const allEvents = mockData.slice(0, defaultNumberOfEvents);
 
   beforeEach(async () => {
     /* Trigger a list of suggestions */
@@ -113,7 +115,7 @@ describe('<App /> integration: selecting locations in sugguestions list', () => 
     const actualEvents = eventListWrapper.props().events;
     expect(actualEvents).toEqual(expectedFilteredEvents);
 
-    const eventListItems = eventListWrapper.find('.eventList li');
+    const eventListItems = eventListWrapper.find('.event-list li');
     expect(eventListItems).toHaveLength(expectedFilteredEvents.length);
   });
 
@@ -136,7 +138,44 @@ describe('<App /> integration: selecting locations in sugguestions list', () => 
     const eventListWrapper = AppWrapper.find(EventList);
     expect(eventListWrapper.props().events).toEqual(allEvents);
 
-    const eventListItems = eventListWrapper.find('.eventList li');
+    const eventListItems = eventListWrapper.find('.event-list li');
     expect(eventListItems).toHaveLength(allEvents.length);
+  });
+});
+
+describe('<App /> integration: specify the number of events', () => {
+  let AppWrapper: ReactWrapper<typeof App>;
+  beforeEach(async () => {
+    await act(() => {
+      AppWrapper = mount(<App />);
+      return new Promise(setImmediate);
+    });
+    AppWrapper.update();
+  });
+  afterEach(() => {
+    AppWrapper.unmount();
+  });
+
+  test('list of events is not grater than the default number of events', () => {
+    const numberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    const numberOfEvents = Number(
+      numberOfEventsWrapper.find('.number-of-events_input').props().value,
+    );
+    const eventList = AppWrapper.find(EventList).find('.event-list li');
+    expect(eventList.length).not.toBeGreaterThan(numberOfEvents);
+  });
+
+  test('when changing number of events, list of events is not greater than number of events', async () => {
+    const newValue = 5;
+    const numberOfEventsInput = AppWrapper.find(NumberOfEvents).find(
+      '.number-of-events_input',
+    );
+    await act(() => {
+      numberOfEventsInput.simulate('change', { target: { value: newValue } });
+      return new Promise(setImmediate);
+    });
+    AppWrapper.update();
+    const eventList = AppWrapper.find(EventList).find('.event-list li');
+    expect(eventList.length).not.toBeGreaterThan(newValue);
   });
 });

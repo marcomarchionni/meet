@@ -1,7 +1,26 @@
 import { useState } from 'react';
 
-const NumberOfEvents = () => {
-  const [value, setValue] = useState('32');
+interface NumberOfEventsProps {
+  numberOfEvents: number;
+  setNumberOfEvents: (value: number) => void;
+}
+
+const NumberOfEvents = ({
+  numberOfEvents,
+  setNumberOfEvents,
+}: NumberOfEventsProps) => {
+  const [value, setValue] = useState<string>(numberOfEvents.toString());
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const numericValue = parseInt(e.target.value);
+    if (!Number.isNaN(numericValue)) {
+      setValue(e.target.value);
+      setNumberOfEvents(numericValue);
+    } else {
+      setValue('');
+    }
+  };
+
   return (
     <div className="number-of-events">
       <label htmlFor="number-of-events_input">Number of events</label>
@@ -10,7 +29,7 @@ const NumberOfEvents = () => {
         type="text"
         className="number-of-events_input"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleChange}
       />
     </div>
   );

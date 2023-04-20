@@ -7,7 +7,7 @@ interface EventListProps {
 
 const EventList = ({ events }: EventListProps) => {
   return (
-    <ul className="eventList">
+    <ul className="event-list">
       {events.map((event) => (
         <li key={event.id}>
           <Event event={event} />

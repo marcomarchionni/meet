@@ -28,15 +28,18 @@
       "<rootDir>/src/reportWebVitals.js",
       "<rootDir>/src/service-worker.js",
       "<rootDir>/src/serviceWorkerRegistration.js",
-      "<rootDir>/src/index.tsx"
-    ]
+      "<rootDir>/src/index.tsx",
+      "<rootDir>/src/interfaces/"
+    ],
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
-    "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
