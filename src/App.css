@@ -94,6 +94,7 @@ header {
   text-align: left;
   padding: 8px 6px 8px 10px;
   cursor: default;
+  background-color: var(--meet-lightgray);
 }
 
 .city_search_suggestions > li:last-child {
