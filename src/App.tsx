@@ -7,6 +7,7 @@ import { extractLocations, getEvents } from './api';
 import { Schema$Event } from './interfaces/google-interfaces';
 import './nprogress.css';
 import { defaultLocation, defaultNumberOfEvents } from './defaults';
+import logo from './meet-logo.png';
 
 function App() {
   const [events, setEvents] = useState<Schema$Event[]>([]);
@@ -37,16 +38,22 @@ function App() {
 
   return (
     <div className="app">
-      <CitySearch
-        locations={locations}
-        location={location}
-        setLocation={setLocation}
-      />
-      <NumberOfEvents
-        numberOfEvents={numberOfEvents}
-        setNumberOfEvents={setNumberOfEvents}
-      />
-      <EventList events={events} />
+      <header className="header">
+        <div className="header_logo">
+          <img src={logo} width="200" alt="meet"></img>
+        </div>
+        <div className="header_menu">
+          <CitySearch
+            locations={locations}
+            location={location}
+            setLocation={setLocation}
+          />
+          <NumberOfEvents setNumberOfEvents={setNumberOfEvents} />
+        </div>
+      </header>
+      <main>
+        <EventList events={events} />
+      </main>
     </div>
   );
 }

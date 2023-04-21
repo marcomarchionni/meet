@@ -157,16 +157,13 @@ describe('<App /> integration: specify the number of events', () => {
   });
 
   test('list of events is not grater than the default number of events', () => {
-    const numberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    const numberOfEvents = Number(
-      numberOfEventsWrapper.find('.number-of-events_input').props().value,
-    );
+    const numberOfEvents = defaultNumberOfEvents;
     const eventList = AppWrapper.find(EventList).find('.event-list li');
     expect(eventList.length).not.toBeGreaterThan(numberOfEvents);
   });
 
   test('when changing number of events, list of events is not greater than number of events', async () => {
-    const newValue = 5;
+    const newValue = '5';
     const numberOfEventsInput = AppWrapper.find(NumberOfEvents).find(
       '.number-of-events_input',
     );
@@ -176,6 +173,6 @@ describe('<App /> integration: specify the number of events', () => {
     });
     AppWrapper.update();
     const eventList = AppWrapper.find(EventList).find('.event-list li');
-    expect(eventList.length).not.toBeGreaterThan(newValue);
+    expect(eventList.length).not.toBeGreaterThan(Number(newValue));
   });
 });

@@ -1,31 +1,31 @@
 import { useState } from 'react';
+import { defaultNumberOfEvents } from './defaults';
 
 interface NumberOfEventsProps {
-  numberOfEvents: number;
   setNumberOfEvents: (value: number) => void;
 }
 
-const NumberOfEvents = ({
-  numberOfEvents,
-  setNumberOfEvents,
-}: NumberOfEventsProps) => {
-  const [value, setValue] = useState<string>(numberOfEvents.toString());
+const NumberOfEvents = ({ setNumberOfEvents }: NumberOfEventsProps) => {
+  const [value, setValue] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const numericValue = parseInt(e.target.value);
-    if (!Number.isNaN(numericValue)) {
-      setValue(e.target.value);
-      setNumberOfEvents(numericValue);
-    } else {
+    const onlyDigitsValue = e.target.value.replace(/\D/g, '');
+    const numericValue = parseInt(onlyDigitsValue);
+    if (Number.isNaN(numericValue)) {
       setValue('');
+      setNumberOfEvents(defaultNumberOfEvents);
+    } else {
+      setValue(numericValue.toString());
+      setNumberOfEvents(numericValue);
     }
   };
 
   return (
     <div className="number-of-events">
-      <label htmlFor="number-of-events_input">Number of events</label>
+      {/* <label htmlFor="number-of-events_input">Number of events</label> */}
       <input
         id="number-of-events_input"
+        placeholder="Number of events"
         type="text"
         className="number-of-events_input"
         value={value}

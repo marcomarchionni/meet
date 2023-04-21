@@ -42,6 +42,8 @@ const CitySearch = ({ locations, location, setLocation }: CitySearchProps) => {
   return (
     <div className="city-search">
       <input
+        placeholder="Location"
+        id="city-search_input"
         type="text"
         className="city-search_input"
         value={query}
