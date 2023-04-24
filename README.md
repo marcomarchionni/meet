@@ -40,7 +40,7 @@ Meet is a serverless, progressive web application (PWA) that displays events fil
 
 - **Given**: the user was typing "Be" in the city textbox and a list of city suggestions is showing
 - **When**: the user selects a city from the list (eg. Berlin)
-- **Then**: the user input should change into Berlin, the suggestions list should disappear, and the user should receive a list of upcoming events happening in Rome
+- **Then**: the user input should change into Berlin, the suggestions list should disappear, and the user should receive a list of upcoming events happening in Berlin
 
 ### Feature 2 - Show/hide event details
 

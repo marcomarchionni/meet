@@ -6,3 +6,14 @@ export const formatDate = (isoDate: string | null | undefined) => {
     timeStyle: 'full',
   }).format(date);
 };
+
+export const onlyUnique = (
+  value: string | undefined,
+  index: number,
+  arr: (string | undefined)[],
+) => {
+  if (arr && value) {
+    return arr.indexOf(value) === index;
+  }
+  return false;
+};
