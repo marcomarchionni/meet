@@ -124,7 +124,7 @@ header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
-  row-gap: 0.5rem;
+  row-gap: 1rem;
 }
 
 @media screen and (max-width: 576px) {
@@ -136,10 +136,10 @@ header {
 /* Event component */
 .event {
   padding: 1rem 2rem 4rem;
-  margin-bottom: 10px;
   text-align: left;
   border: 1px solid var(--meet-gray);
   position: relative;
+  min-height: 100%;
 }
 
 .event_calendar-link {
