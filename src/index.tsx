@@ -5,6 +5,9 @@ import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import * as atatus from 'atatus-spa';
+
+atatus.config('66aa9a050de44089ad0b37c4fbe53aa5').install();
 
 const root = document.getElementById('root');
 if (!root) throw new Error('Failed to find the root element');
