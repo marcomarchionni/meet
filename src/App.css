@@ -7,6 +7,7 @@
   --meet-lightgray: #f4f4f4;
   --meet-darkgreen: #416d6b;
   --meet-red: rgb(167, 30, 30);
+  --meet-orange: rgb(255, 202, 103);
 }
 
 .app {
@@ -44,6 +45,36 @@ input:focus {
   border: 2px solid var(--meet-green);
 }
 
+/* Alerts */
+
+.alert {
+  position: absolute;
+  top: -14px;
+  right: 1px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.alert p {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.info-alert {
+  width: 250px;
+}
+
+.error-alert {
+  width: 180px;
+}
+
+.warning-alert {
+  width: 100%;
+  top: 0;
+  right: 0;
+}
+
 /***HEADER****/
 
 header {
@@ -62,6 +93,7 @@ header {
 @media screen and (max-width: 768px) {
   header {
     flex-direction: column;
+    margin-top: 0.5rem;
     margin-bottom: 2rem;
   }
   .header_menu {
@@ -103,10 +135,6 @@ header {
   background-color: var(--meet-green);
 }
 
-.city-search .alert {
-  width: 250px;
-}
-
 /* HEADER - Number of events */
 
 .number-of-events {
@@ -116,27 +144,6 @@ header {
 
 .number-of-events_input {
   width: 180px;
-}
-
-.number-of-events .alert {
-  width: 180px;
-}
-
-/* Alert */
-
-.alert {
-  /* width: 250px; */
-  position: absolute;
-  top: -14px;
-  right: 1px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.alert p {
-  margin-top: 2px;
-  margin-bottom: 2px;
 }
 
 /* Event list */
