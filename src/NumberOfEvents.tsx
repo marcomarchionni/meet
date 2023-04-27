@@ -12,11 +12,17 @@ const NumberOfEvents = ({ setNumberOfEvents }: NumberOfEventsProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const onlyDigitsValue = e.target.value.replace(/\D/g, '');
-    const numericValue = parseInt(onlyDigitsValue);
-    if (Number.isNaN(numericValue) || numericValue < 1 || numericValue > 32) {
+    if (onlyDigitsValue === '') {
       setValue('');
       setNumberOfEvents(defaultNumberOfEvents);
-      setErrorText('Only numbers from 1 to 32');
+      setErrorText('');
+      return;
+    }
+    const numericValue = parseInt(onlyDigitsValue);
+    if (numericValue < 1 || numericValue > defaultNumberOfEvents) {
+      setValue('');
+      setNumberOfEvents(defaultNumberOfEvents);
+      setErrorText(`Only numbers from 1 to ${defaultNumberOfEvents}`);
     } else {
       setValue(numericValue.toString());
       setNumberOfEvents(numericValue);
