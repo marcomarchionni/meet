@@ -1,4 +1,4 @@
-import { ReactWrapper, ShallowWrapper, mount, shallow } from 'enzyme';
+import { ReactWrapper, mount } from 'enzyme';
 import App from '../App';
 import CitySearch from '../CitySearch';
 import EventList from '../EventList';
@@ -10,9 +10,13 @@ import { setImmediate } from 'timers';
 import { defaultNumberOfEvents } from '../defaults';
 
 describe('<App /> component', () => {
-  let AppWrapper: ShallowWrapper<typeof App>;
-  beforeAll(() => {
-    AppWrapper = shallow(<App />);
+  let AppWrapper: ReactWrapper<typeof App>;
+  beforeAll(async () => {
+    await act(() => {
+      AppWrapper = mount(<App />);
+      return new Promise(setImmediate);
+    });
+    AppWrapper.update();
   });
   test('render list of events', () => {
     expect(AppWrapper.find(EventList)).toHaveLength(1);

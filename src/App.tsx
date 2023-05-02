@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { WarnAlert } from './Alert';
 import './App.css';
 import CitySearch from './CitySearch';
 import EventList from './EventList';
 import NumberOfEvents from './NumberOfEvents';
+import WelcomeScreen from './WelcomeScreen';
 import { extractLocations, getEvents } from './api';
-import { Schema$Event } from './interfaces/google-interfaces';
-import './nprogress.css';
 import { defaultLocation, defaultNumberOfEvents } from './defaults';
+import { NoAuthCodeError } from './errors';
+import { Schema$Event } from './interfaces/google-interfaces';
 import logo from './meet-logo.png';
-import { WarnAlert } from './Alert';
+import './nprogress.css';
 
 function App() {
   const [events, setEvents] = useState<Schema$Event[]>([]);
@@ -18,13 +20,16 @@ function App() {
   );
   const [location, setLocation] = useState<string>(defaultLocation);
   const [warning, setWarning] = useState('');
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState<
+    boolean | undefined
+  >(undefined);
 
   useEffect(() => {
-    checkIfOnline();
+    notifyIfOffline();
     updateEvents(location, numberOfEvents);
   }, [location, numberOfEvents]);
 
-  const checkIfOnline = () => {
+  const notifyIfOffline = () => {
     if (!navigator.onLine) {
       setWarning('The App is offline. Displayed data may not be up to date.');
     } else {
@@ -33,19 +38,30 @@ function App() {
   };
 
   const updateEvents = (location: string, numberOfEvents: number) => {
-    getEvents().then((events) => {
-      setLocations(extractLocations(events));
-      const locationEvents =
-        location === ''
-          ? events
-          : events.filter((event) => event.location === location);
-      if (locationEvents.length > numberOfEvents) {
-        setEvents(locationEvents.slice(0, numberOfEvents));
-      } else {
-        setEvents(locationEvents);
-      }
-    });
+    getEvents()
+      .then((events) => {
+        setLocations(extractLocations(events));
+        const locationEvents =
+          location === ''
+            ? events
+            : events.filter((event) => event.location === location);
+        if (locationEvents.length > numberOfEvents) {
+          setEvents(locationEvents.slice(0, numberOfEvents));
+        } else {
+          setEvents(locationEvents);
+        }
+        setShowWelcomeScreen(false);
+      })
+      .catch((error) => {
+        if (error instanceof NoAuthCodeError) {
+          setShowWelcomeScreen(true);
+        }
+      });
   };
+
+  if (showWelcomeScreen === undefined) {
+    return <div className="app"></div>;
+  }
 
   return (
     <div className="app">
@@ -66,6 +82,7 @@ function App() {
       <main>
         <EventList events={events} />
       </main>
+      {showWelcomeScreen && <WelcomeScreen />}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 {
   "short_name": "Meet",
-  "name": "Meet App",
+  "name": "Meet",
+  "description": "IT events around the world",
   "icons": [
     {
       "src": "favicon.ico",

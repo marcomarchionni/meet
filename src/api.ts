@@ -1,5 +1,5 @@
 import { Schema$Event } from './interfaces/google-interfaces';
-import { mockData } from './mock-data';
+// import { mockData } from './mock-data';
 import axios from 'axios';
 import NProgress from 'nprogress';
 import {
@@ -8,6 +8,11 @@ import {
   getEventsBaseEndpoint,
   getTokenBaseEndpoint,
 } from './urls';
+import { NoAuthCodeError } from './errors';
+import {
+  getEventEndpointResult,
+  getTokenEndpointResult,
+} from './interfaces/endpointsResults';
 
 const isValidToken = async (accessToken: string) => {
   const checkTokenEndpoint = checkTokenBaseEndpoint + accessToken;
@@ -31,62 +36,70 @@ const removeQuery = () => {
 
 const getTokenFromGoogle = async (code: string) => {
   const getTokenEndpoint = getTokenBaseEndpoint + encodeURIComponent(code);
-  const { access_token } = await fetch(getTokenEndpoint)
+  const { access_token }: getTokenEndpointResult = await fetch(getTokenEndpoint)
     .then((res) => res.json())
     .catch((error) => error);
   if (access_token) localStorage.setItem('access_token', access_token);
   return access_token;
 };
 
-export const getAccessToken = async () => {
+export const getToken = async (): Promise<string> => {
   const accessToken = localStorage.getItem('access_token');
-  const tokenIsValid = accessToken ? await isValidToken(accessToken) : false;
+  const tokenIsValid = accessToken && (await isValidToken(accessToken));
+  if (tokenIsValid) return accessToken;
 
-  if (!tokenIsValid) {
-    localStorage.removeItem('access_token');
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = await searchParams.get('code');
-    if (!code) {
-      const results = await axios.get(getAuthURLEndopoint);
-      const { authUrl } = results.data;
-      return (window.location.href = authUrl);
-    }
-    return code && getTokenFromGoogle(code);
-  }
-  return accessToken;
+  // if token is invalid get token with code
+  localStorage.removeItem('access_token');
+  const searchParams = new URLSearchParams(window.location.search);
+  const code = searchParams.get('code');
+  if (code) return getTokenFromGoogle(code);
+
+  // no code is found
+  throw new NoAuthCodeError();
 };
 
-interface resultType {
-  data: {
-    events: Schema$Event[];
-  };
-}
+export const getAuthUrl = async () => {
+  try {
+    const results = await axios.get(getAuthURLEndopoint);
+    const { authUrl }: { authUrl: string } = results.data;
+    return (window.location.href = authUrl);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const getEvents = async (): Promise<Schema$Event[]> => {
-  NProgress.start();
-  if (window.location.href.startsWith('http://localhost')) {
-    NProgress.done();
-    return mockData;
-  }
-  if (!navigator.onLine) {
-    const data = localStorage.getItem('lastEvents');
-    NProgress.done();
-    return data ? JSON.parse(data).events : [];
-  }
-  const token = await getAccessToken();
-  if (token) {
-    removeQuery();
-    const getEventEndpoint = getEventsBaseEndpoint + token;
-    const result: resultType = await axios.get(getEventEndpoint);
-    if (result.data) {
-      const locations = extractLocations(result.data.events);
-      localStorage.setItem('lastEvents', JSON.stringify(result.data));
-      localStorage.setItem('locations', JSON.stringify(locations));
+  // if (window.location.href.startsWith('http://localhost')) {
+  //   NProgress.done();
+  //   return mockData;
+  // }
+  try {
+    NProgress.start();
+
+    if (!navigator.onLine) {
+      const data = localStorage.getItem('lastEvents');
+      NProgress.done();
+      return data ? JSON.parse(data).events : [];
+    }
+
+    const token = await getToken();
+    if (token) {
+      removeQuery();
+      const getEventEndpoint = getEventsBaseEndpoint + token;
+      const result: getEventEndpointResult = await axios.get(getEventEndpoint);
+      if (result.data) {
+        const locations = extractLocations(result.data.events);
+        localStorage.setItem('lastEvents', JSON.stringify(result.data));
+        localStorage.setItem('locations', JSON.stringify(locations));
+      }
+      return result.data.events;
     }
     NProgress.done();
-    return result.data.events;
+    return [];
+  } catch (error) {
+    NProgress.done();
+    throw error;
   }
-  return [];
 };
 
 export const extractLocations = (

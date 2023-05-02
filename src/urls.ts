@@ -8,3 +8,5 @@ export const getEventsBaseEndpoint =
   'https://ekxzyis4x6.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/';
 
 export const checkTokenBaseEndpoint = `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=`;
+
+export const privacyUrl = process.env.PUBLIC_URL + '/privacy.html';
