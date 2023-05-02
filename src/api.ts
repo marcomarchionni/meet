@@ -60,8 +60,10 @@ export const getToken = async (): Promise<string> => {
 
 export const getAuthUrl = async () => {
   try {
+    NProgress.start();
     const results = await axios.get(getAuthURLEndopoint);
     const { authUrl }: { authUrl: string } = results.data;
+    NProgress.done();
     return (window.location.href = authUrl);
   } catch (error) {
     console.error(error);
