@@ -13,6 +13,7 @@ import {
   getEventEndpointResult,
   getTokenEndpointResult,
 } from './interfaces/endpointsResults';
+import { mockData } from './mock-data';
 
 const isValidToken = async (accessToken: string) => {
   const checkTokenEndpoint = checkTokenBaseEndpoint + accessToken;
@@ -71,10 +72,10 @@ export const getAuthUrl = async () => {
 };
 
 export const getEvents = async (): Promise<Schema$Event[]> => {
-  // if (window.location.href.startsWith('http://localhost')) {
-  //   NProgress.done();
-  //   return mockData;
-  // }
+  if (window.location.href.startsWith('http://localhost')) {
+    NProgress.done();
+    return mockData;
+  }
   try {
     NProgress.start();
 
