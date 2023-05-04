@@ -2,6 +2,7 @@
 
 :root {
   --meet-dark: #212529;
+  --meet-logo-dark: #393e46;
   --meet-green: #bcdcdb;
   --meet-lightgreen: #c1e1e0;
   --meet-gray: #ccc;
@@ -183,7 +184,7 @@ header {
   border: 2px var(--meet-green) solid;
   outline: none;
   cursor: pointer;
-
+  color: var(--meet-dark);
   background-color: var(--meet-green);
 }
 
