@@ -23,7 +23,7 @@ const CityScatterChart = ({ events, locations }: ChartProps) => {
       const number = events.filter(
         (event) => event.location === location,
       ).length;
-      const city = location.split(', ').shift();
+      const city = location.split(/[^a-zA-Z]+/).shift();
       return { city, number };
     });
     setChartData(data);
