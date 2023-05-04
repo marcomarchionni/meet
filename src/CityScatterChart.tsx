@@ -42,21 +42,31 @@ const CityScatterChart = ({ events, locations }: ChartProps) => {
         <XAxis
           dataKey="city"
           type="category"
-          name="city"
+          name="City"
           stroke="#cccccc"
           tickLine={false}
           tick={{ fill: '#757575' }}
+          fontSize="14px"
         />
         <YAxis
           dataKey="number"
           type="number"
           allowDecimals={false}
-          name="number of events"
+          name="Number of Events"
           stroke="#cccccc"
           tickLine={false}
           tick={{ fill: '#757575' }}
+          fontSize="14px"
         />
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+        <Tooltip
+          cursor={{ strokeDasharray: '3 3' }}
+          contentStyle={{
+            color: 'red',
+            fontSize: '14px',
+            textAlign: 'left',
+          }}
+          wrapperStyle={{ outline: 'none' }}
+        />
         <Scatter name="Events" data={chartData} fill="#96B0AF" />
       </ScatterChart>
     </ResponsiveContainer>

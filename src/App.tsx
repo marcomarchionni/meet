@@ -11,8 +11,8 @@ import { NoAuthCodeError } from './errors';
 import { Schema$Event } from './interfaces/google-interfaces';
 import logo from './meet-logo.png';
 import './nprogress.css';
-import CityScatterChart from './EventsCityChart';
-import GenrePieChart from './EventGenreChart';
+import CityScatterChart from './CityScatterChart';
+import GenrePieChart from './GenrePieChart';
 
 function App() {
   const [events, setEvents] = useState<Schema$Event[]>([]);
