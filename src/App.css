@@ -80,7 +80,7 @@ input:focus {
 
 header {
   display: flex;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
 }
 
 .header_menu {
@@ -297,10 +297,18 @@ header {
     flex-direction: row;
   }
 
-  .data-vis-wrapper .recharts-responsive-container {
-    flex-basis: 50%;
-    max-width: 50%;
+  .data-vis-wrapper .pie-chart {
+    flex-basis: 40%;
+    max-width: 40%;
     min-width: auto;
     margin: 0 auto;
+  }
+
+  .data-vis-wrapper .scatter-chart {
+    flex-basis: 60%;
+    max-width: 60%;
+    min-width: auto;
+    margin: 0 auto;
+    color: var(--meet-dark);
   }
 }
