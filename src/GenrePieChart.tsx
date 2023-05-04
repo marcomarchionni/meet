@@ -21,9 +21,9 @@ const GenrePieChart = ({ events }: EventGenreChartProps) => {
 
     events.forEach((event) => {
       if (!event.summary) return;
-      const summaryWords = event.summary.split(' ');
+      const summaryWords = event.summary.toUpperCase().split(/[^A-Z]+/);
       genres.forEach((genre) => {
-        if (summaryWords.includes(genre)) {
+        if (summaryWords.includes(genre.toUpperCase())) {
           map.set(genre, (map.get(genre) ?? 0) + 1);
         }
       });
