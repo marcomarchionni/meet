@@ -1,3 +1,5 @@
+![Meet App Screenshot](public/meet-app-screenshot.png)
+
 # Meet
 
 Meet is a serverless, progressive web application (PWA) that displays events filtered by city. It is developed using React and a test-driven development (TDD) technique. The application uses the Google Calendar API to fetch upcoming events.
