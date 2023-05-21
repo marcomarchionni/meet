@@ -11,6 +11,8 @@ import { NoAuthCodeError } from './errors';
 import { Schema$Event } from './interfaces/google-interfaces';
 import logo from './meet-logo.png';
 import './nprogress.css';
+import CityScatterChart from './CityScatterChart';
+import GenrePieChart from './GenrePieChart';
 
 function App() {
   const [events, setEvents] = useState<Schema$Event[]>([]);
@@ -26,7 +28,7 @@ function App() {
 
   useEffect(() => {
     notifyIfOffline();
-    updateEvents(location, numberOfEvents);
+    updateEventsAndLocations(location, numberOfEvents);
   }, [location, numberOfEvents]);
 
   const notifyIfOffline = () => {
@@ -37,7 +39,10 @@ function App() {
     }
   };
 
-  const updateEvents = (location: string, numberOfEvents: number) => {
+  const updateEventsAndLocations = (
+    location: string,
+    numberOfEvents: number,
+  ) => {
     getEvents()
       .then((events) => {
         setLocations(extractLocations(events));
@@ -45,11 +50,8 @@ function App() {
           location === ''
             ? events
             : events.filter((event) => event.location === location);
-        if (locationEvents.length > numberOfEvents) {
-          setEvents(locationEvents.slice(0, numberOfEvents));
-        } else {
-          setEvents(locationEvents);
-        }
+
+        setEvents(locationEvents.slice(0, numberOfEvents));
         setShowWelcomeScreen(false);
       })
       .catch((error) => {
@@ -80,6 +82,13 @@ function App() {
         </div>
       </header>
       <main>
+        <div className="data-vis-wrapper">
+          <GenrePieChart events={events} />
+          <CityScatterChart
+            events={events}
+            locations={location ? [location] : locations}
+          />
+        </div>
         <EventList events={events} />
       </main>
       {showWelcomeScreen && <WelcomeScreen />}

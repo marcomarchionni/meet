@@ -1,8 +1,12 @@
+![Meet App Screenshot](public/meet-app-screenshot.png)
+
 # Meet
 
-Meet is a serverless, progressive web application (PWA) that displays events filtered by city. It is developed using React and a test-driven development (TDD) technique. The application uses the Google Calendar API to fetch upcoming events.
+Meet is a serverless, progressive web application (PWA) that displays events filtered by city and by number of events. It is developed using React, test driven development (TDD) and behavior driven development (BDD) techniques. The application uses the Google Calendar API to fetch events from a sample calendar account. The authorization process is handled by AWS Lambda functions. The app is capable to work offline with cached data.
 
 ## Key Features
+
+Here are the app key features:
 
 1. Filter events by city.
 2. Show/hide event details.
@@ -12,6 +16,8 @@ Meet is a serverless, progressive web application (PWA) that displays events fil
 6. View a chart showing the number of upcoming events by city.
 
 ## User Stories
+
+Key features correspond to the following user stories:
 
 1. As a user, I would like to be able to filter events by city, so I can view the list of events that take place in a city.
 2. As a user, I would like to be able to show/hide the event details, so I can see more/less details abount an event.
@@ -98,12 +104,20 @@ No testable scenarios.
 
 #### Scenario 1: Show a chart with the number of upcoming events in each city
 
-- **Given**: the app is open
-- **When**: the user clicks on a menu button to display a chart of the upcoming events by city
-- **Then**: the app displays a chart that shows the number of upcoming events for each city
+- **Given**: the app is closed
+- **When**: the user opens the app
+- **Then**: the app displays a chart that shows the number of upcoming events for each city reflecting data fetched by the API
 
 ## Data Flow and Serverless Authorization
 
 The Meet App frontend will make use of data stored in a Google Calendar account via the Google Calendar API. Since the Google Calendar API is protected and requires an authorization token, the app will also make use of an authorization service deployed in a serverless AWS Lambda function. The app will submit its credentials to the Lambda function. If the credentials are valid, the app will receive a JWT token that will be used to submit any request to the Google Calendar API. Here is a diagram of the authorization flow.
 
 ![Meet App Authorization Flow](public/AuthFlow.svg)
+
+## PWA enabled
+
+Meet App is fully compliant with the PWA specifications. The app can be installed on desktops and mobile devices and is capable to work offline with cached data.
+
+## Google verification
+
+The app is undergoing the verification process with Google for allowing unrestricted public access.
