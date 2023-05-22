@@ -57,6 +57,8 @@ function App() {
       .catch((error) => {
         if (error instanceof NoAuthCodeError) {
           setShowWelcomeScreen(true);
+        } else {
+          console.log(error);
         }
       });
   };

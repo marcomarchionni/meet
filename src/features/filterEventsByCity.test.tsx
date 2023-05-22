@@ -12,6 +12,23 @@ import EventList from '../EventList';
 const feature = loadFeature('./src/features/filterEventsByCity.feature');
 
 defineFeature(feature, (test) => {
+  const { ResizeObserver } = window;
+
+  beforeEach(() => {
+    //@ts-ignore
+    delete window.ResizeObserver;
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+  });
+
+  afterEach(() => {
+    window.ResizeObserver = ResizeObserver;
+    jest.restoreAllMocks();
+  });
+
   test('When user hasn’t searched for a city, show upcoming events from all cities.', ({
     given,
     when,

@@ -9,6 +9,23 @@ const feature = loadFeature('./src/features/specifyNumberOfEvents.feature');
 
 defineFeature(feature, (test) => {
   let AppWrapper: ReactWrapper<typeof App>;
+  const { ResizeObserver } = window;
+
+  beforeEach(() => {
+    //@ts-ignore
+    delete window.ResizeObserver;
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+  });
+
+  afterEach(() => {
+    window.ResizeObserver = ResizeObserver;
+    jest.restoreAllMocks();
+  });
+
   test("When a user hasn't specified a number, thirtytwo is the defaut number", ({
     given,
     when,
@@ -20,6 +37,14 @@ defineFeature(feature, (test) => {
     );
 
     when('the app displays a list of events', async () => {
+      //@ts-ignore
+      delete window.ResizeObserver;
+      window.ResizeObserver = jest.fn().mockImplementation(() => ({
+        observe: jest.fn(),
+        unobserve: jest.fn(),
+        disconnect: jest.fn(),
+      }));
+
       await act(() => {
         AppWrapper = mount(<App />);
         return new Promise(setImmediate);

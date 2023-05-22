@@ -10,6 +10,7 @@ describe('<CitySearch /> component', () => {
   let location: string;
   beforeAll(() => {
     locations = extractLocations(mockData);
+    console.log(locations.length);
     location = locations[0];
     query = location.slice(0, 2);
     CitySearchWrapper = shallow(
@@ -29,9 +30,10 @@ describe('<CitySearch /> component', () => {
   });
 
   test('render all suggestions when city-search input is focused and query empty', () => {
+    const expectedSuggestions = locations.length + 1;
     CitySearchWrapper.find('.city-search_input').simulate('focus');
     expect(CitySearchWrapper.find('.city-search_suggestions li')).toHaveLength(
-      3,
+      expectedSuggestions
     );
   });
 

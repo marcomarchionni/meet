@@ -11,13 +11,30 @@ import { defaultNumberOfEvents } from '../defaults';
 
 describe('<App /> component', () => {
   let AppWrapper: ReactWrapper<typeof App>;
+  const { ResizeObserver } = window;
+
   beforeAll(async () => {
+    // Mock resize observer https://github.com/maslianok/react-resize-detector#testing-with-enzyme-and-jest
+    //@ts-ignore
+    delete window.ResizeObserver;
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+
     await act(() => {
       AppWrapper = mount(<App />);
       return new Promise(setImmediate);
     });
     AppWrapper.update();
   });
+
+  afterAll(() => {
+    window.ResizeObserver = ResizeObserver;
+    jest.restoreAllMocks();
+  });
+
   test('render list of events', () => {
     expect(AppWrapper.find(EventList)).toHaveLength(1);
   });
@@ -35,15 +52,31 @@ describe('<App /> integration: passing props to children', () => {
   let AppWrapper: ReactWrapper<typeof App>;
   const expectedLocations = extractLocations(mockData);
   const expectedEvents = mockData.slice(0, defaultNumberOfEvents);
+  const { ResizeObserver } = window;
 
   beforeEach(async () => {
+    // Mock resize observer https://github.com/maslianok/react-resize-detector#testing-with-enzyme-and-jest
+    //@ts-ignore
+    delete window.ResizeObserver;
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+
     await act(() => {
       AppWrapper = mount(<App />);
       return new Promise(setImmediate);
     });
     AppWrapper.update();
   });
-  afterEach(() => AppWrapper.unmount());
+
+  afterEach(() => {
+    window.ResizeObserver = ResizeObserver;
+    jest.restoreAllMocks();
+
+    AppWrapper.unmount();
+  });
 
   test('App passes mock events as prop to EventList', () => {
     const eventsProp = AppWrapper.find(EventList).props().events;
@@ -66,8 +99,18 @@ describe('<App /> integration: selecting locations in sugguestions list', () => 
     (event) => event.location === expectedLocation,
   );
   const allEvents = mockData.slice(0, defaultNumberOfEvents);
+  const { ResizeObserver } = window;
 
   beforeEach(async () => {
+    // Mock ResizeObserver https://github.com/maslianok/react-resize-detector#testing-with-enzyme-and-jest
+    //@ts-ignore
+    delete window.ResizeObserver;
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+
     /* Trigger a list of suggestions */
     // Init application and first API call
     await act(() => {
@@ -96,7 +139,12 @@ describe('<App /> integration: selecting locations in sugguestions list', () => 
     expect(suggestions).toHaveLength(2);
   });
 
-  afterEach(() => AppWrapper.unmount());
+  afterEach(() => {
+    window.ResizeObserver = ResizeObserver;
+    jest.restoreAllMocks();
+
+    AppWrapper.unmount();
+  });
 
   test('List of events changes according to selected location', async () => {
     // Given: SuggestionsList displays a list of locations
@@ -149,7 +197,18 @@ describe('<App /> integration: selecting locations in sugguestions list', () => 
 
 describe('<App /> integration: specify the number of events', () => {
   let AppWrapper: ReactWrapper<typeof App>;
+  const { ResizeObserver } = window;
+
   beforeEach(async () => {
+    // Mock resize observer https://github.com/maslianok/react-resize-detector#testing-with-enzyme-and-jest
+    //@ts-ignore
+    delete window.ResizeObserver;
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+
     await act(() => {
       AppWrapper = mount(<App />);
       return new Promise(setImmediate);
@@ -157,6 +216,9 @@ describe('<App /> integration: specify the number of events', () => {
     AppWrapper.update();
   });
   afterEach(() => {
+    window.ResizeObserver = ResizeObserver;
+    jest.restoreAllMocks();
+
     AppWrapper.unmount();
   });
 

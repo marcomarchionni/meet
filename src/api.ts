@@ -1,5 +1,4 @@
 import { Schema$Event } from './interfaces/google-interfaces';
-// import { mockData } from './mock-data';
 import axios from 'axios';
 import NProgress from 'nprogress';
 import {
